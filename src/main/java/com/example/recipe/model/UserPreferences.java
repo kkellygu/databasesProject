@@ -1,7 +1,5 @@
 package com.example.recipe.model;
 
-import com.example.recipe.model.UserPreferences;
-
 import jakarta.persistence.*;
 
 @Entity
@@ -11,12 +9,12 @@ public class UserPreferences {
     @Column(name = "userID")
     private int userID;
 
-    @Column(name="preferences")
+    @Column(name = "preferences")
     private String preferences;
 
-    @ManyToOne
-    @JoinColumn(name = "userID", fetch = FetchType.LAZY, referencedColumnName = "userID", nullable = false)
-    private UserPreferences user; 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userID", referencedColumnName = "userID", insertable = false, updatable = false)
+    private User user;
 
     public Integer getUserID() {
         return userID;
@@ -34,11 +32,11 @@ public class UserPreferences {
         this.preferences = preferences;
     }
 
-    public UserPreferences getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserPreferences user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

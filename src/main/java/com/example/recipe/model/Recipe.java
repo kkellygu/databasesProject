@@ -1,7 +1,9 @@
 package com.example.recipe.model;
 
 import jakarta.persistence.*;
+
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Table(name = "recipe")
@@ -37,6 +39,14 @@ public class Recipe {
 
     @Column(name = "cuisine")
     private String cuisine;
+
+    @ManyToMany
+    @JoinTable(
+        name = "recipeTags",
+        joinColumns = @JoinColumn(name = "recipeID"),
+        inverseJoinColumns = @JoinColumn(name = "tagID")
+    )
+    private Set<RecipeTags> tags;
 
     // Getters and setters
     public int getRecipeID() {
@@ -117,5 +127,13 @@ public class Recipe {
 
     public void setCuisine(String cuisine) {
         this.cuisine = cuisine;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 }

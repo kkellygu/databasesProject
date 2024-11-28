@@ -132,11 +132,11 @@ public class Recipe {
         this.cuisine = cuisine;
     }
 
-    public Set<Tag> getTags() {
+    public Set<RecipeTags> getTags() {
         return tags;
     }
 
-    public void setTags(Set<Tag> tags) {
+    public void setTags(Set<RecipeTags> tags) {
         this.tags = tags;
     }
 

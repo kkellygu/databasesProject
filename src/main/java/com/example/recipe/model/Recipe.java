@@ -48,6 +48,9 @@ public class Recipe {
     )
     private Set<RecipeTags> tags;
 
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Review> reviews;
+
     // Getters and setters
     public int getRecipeID() {
         return recipeID;
@@ -135,5 +138,13 @@ public class Recipe {
 
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
+    }
+
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
     }
 }

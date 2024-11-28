@@ -1,4 +1,4 @@
-package main.java.com.example.recipe.model;
+package com.example.recipe.model;
 
 import com.example.recipe.model.UserPreferences;
 

@@ -25,7 +25,7 @@ public class Review {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    @Column(name = "public", nullable = false)
+    @Column(name = "[public]", nullable = false)
     private boolean isPublic;
 
     @Column(name = "comment")

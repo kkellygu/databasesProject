@@ -1,44 +1,32 @@
 package com.example.recipe.model;
 
 import jakarta.persistence.*;
-import java.util.Set;
 
 @Entity
-@Table(name = "recipeTags")
+@Table(name = "recipeTags") // Table name in the database
 public class RecipeTags {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "recipeID") // Maps to recipeID column
+    private int recipeID;
 
-    @Column(name = "name", nullable = false, unique = true)
-    private String name;
-
-    @ManyToMany(mappedBy = "tags")
-    private Set<Recipe> recipes;
+    @Column(name = "tags") // Maps to tags column
+    private String tags;
 
     // Getters and setters
-    public int getId() {
-        return id;
+    public int getRecipeID() {
+        return recipeID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setRecipeID(int recipeID) {
+        this.recipeID = recipeID;
     }
 
-    public String getName() {
-        return name;
+    public String getTags() {
+        return tags;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<Recipe> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(Set<Recipe> recipes) {
-        this.recipes = recipes;
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 }

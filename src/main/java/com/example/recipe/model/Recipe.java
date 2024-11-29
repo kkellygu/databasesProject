@@ -1,7 +1,11 @@
 package com.example.recipe.model;
+import com.example.recipe.model.Review;
+import com.example.recipe.model.RecipeCookingSupplies;
+
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -39,13 +43,11 @@ public class Recipe {
     @Column(name = "cuisine")
     private String cuisine;
 
-    @ManyToMany
-    @JoinTable(
-        name = "recipeTags",
-        joinColumns = @JoinColumn(name = "recipeID"),
-        inverseJoinColumns = @JoinColumn(name = "tagID")
-    )
-    private Set<RecipeTags> tags;
+
+    @ElementCollection
+    @CollectionTable(name = "recipeTags", joinColumns = @JoinColumn(name = "recipeID"))
+    @Column(name = "tags")
+    private Set<String> tags = new HashSet<>();
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Review> reviews;
@@ -134,11 +136,11 @@ public class Recipe {
         this.cuisine = cuisine;
     }
 
-    public Set<RecipeTags> getTags() {
+    public Set<String> getTags() {
         return tags;
     }
 
-    public void setTags(Set<RecipeTags> tags) {
+    public void setTags(Set<String> tags) {
         this.tags = tags;
     }
 

@@ -32,21 +32,12 @@ public class RecipeTagsController {
         }
     }
 
-    // Get a recipe tag by ID
-    @GetMapping("/recipeTags/{id}")
-    public ResponseEntity<RecipeTags> getRecipeTagsById(@PathVariable("id") int id) {
-        Optional<RecipeTags> recipeTag = recipeTagsRepository.findById(id);
+    // Get a recipe tag by tag (primary key)
+    @GetMapping("/recipeTags/{tag}")
+    public ResponseEntity<RecipeTags> getRecipeTagsById(@PathVariable("tag") String tag) {
+        Optional<RecipeTags> recipeTag = recipeTagsRepository.findById(tag);
         return recipeTag.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    // Get a recipe tag by name
-    @GetMapping("/recipeTags/name/{name}")
-    public ResponseEntity<RecipeTags> getRecipeTagsByName(@PathVariable("name") String name) {
-        RecipeTags recipeTag = recipeTagsRepository.findByName(name);
-        return recipeTag != null
-                ? new ResponseEntity<>(recipeTag, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     // Create a new recipe tag
@@ -60,39 +51,40 @@ public class RecipeTagsController {
         }
     }
 
-    // Update an existing recipe tag
-    @PutMapping("/recipeTags/{id}")
-    public ResponseEntity<RecipeTags> updateRecipeTags(@PathVariable("id") int id, @RequestBody RecipeTags recipeTagDetails) {
-        Optional<RecipeTags> recipeTagData = recipeTagsRepository.findById(id);
+    // Update a recipe tag
+    @PutMapping("/recipeTags/{tags}")
+    public ResponseEntity<RecipeTags> updateRecipeTags(@PathVariable("tags") String tags, @RequestBody RecipeTags recipeTagDetails) {
+        Optional<RecipeTags> recipeTagData = recipeTagsRepository.findById(tags);
 
         if (recipeTagData.isPresent()) {
             RecipeTags existingRecipeTag = recipeTagData.get();
-            existingRecipeTag.setName(recipeTagDetails.getName());
+            existingRecipeTag.setRecipeID(recipeTagDetails.getRecipeID());
+            existingRecipeTag.setTags(recipeTagDetails.getTags());
             return new ResponseEntity<>(recipeTagsRepository.save(existingRecipeTag), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
-    // Delete a recipe tag by ID
-    @DeleteMapping("/recipeTags/{id}")
-    public ResponseEntity<HttpStatus> deleteRecipeTags(@PathVariable("id") int id) {
-        try {
-            recipeTagsRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        // Delete a recipe tag by tags (primary key)
+        @DeleteMapping("/recipeTags/{tags}")
+        public ResponseEntity<HttpStatus> deleteRecipeTags(@PathVariable("tags") String tags) {
+            try {
+                recipeTagsRepository.deleteById(tags); // Adjusted to use 'tags'
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } catch (Exception e) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
-    }
-
-    // Delete all recipe tags
-    @DeleteMapping("/recipeTags")
-    public ResponseEntity<HttpStatus> deleteAllRecipeTags() {
-        try {
-            recipeTagsRepository.deleteAll();
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    
+        // Delete all recipe tags
+        @DeleteMapping("/recipeTags")
+        public ResponseEntity<HttpStatus> deleteAllRecipeTags() {
+            try {
+                recipeTagsRepository.deleteAll(); // Deletes all entries in the table
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } catch (Exception e) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
-    }
+    
 }

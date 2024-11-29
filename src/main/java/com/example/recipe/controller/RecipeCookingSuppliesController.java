@@ -1,6 +1,6 @@
 package com.example.recipe.controller;
-
 import com.example.recipe.model.RecipeCookingSupplies;
+import com.example.recipe.model.RecipeCookingSuppliesKey;
 import com.example.recipe.repository.RecipeCookingSuppliesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/recipe-cooking-supplies")
@@ -22,11 +23,17 @@ public class RecipeCookingSuppliesController {
         return recipeCookingSuppliesRepository.findAll();
     }
 
-    // Get a specific recipe cooking supply by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<RecipeCookingSupplies> getRecipeCookingSupplyById(@PathVariable int id) {
-        return recipeCookingSuppliesRepository.findById(id)
-                .map(ResponseEntity::ok)
+    // Get a specific recipe cooking supply by composite key
+    @GetMapping("/{recipeID}/{cookingSupplies}")
+    public ResponseEntity<RecipeCookingSupplies> getRecipeCookingSupplyById(
+            @PathVariable int recipeID, @PathVariable String cookingSupplies) {
+        RecipeCookingSuppliesKey id = new RecipeCookingSuppliesKey();
+        id.setRecipeID(recipeID);
+        id.setCookingSupplies(cookingSupplies);
+
+        Optional<RecipeCookingSupplies> recipeCookingSupply = recipeCookingSuppliesRepository.findById(id);
+
+        return recipeCookingSupply.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
@@ -36,25 +43,15 @@ public class RecipeCookingSuppliesController {
         return recipeCookingSuppliesRepository.save(recipeCookingSupplies);
     }
 
-    // Update an existing recipe cooking supply
-    @PutMapping("/{id}")
-    public ResponseEntity<RecipeCookingSupplies> updateRecipeCookingSupply(
-            @PathVariable int id, @RequestBody RecipeCookingSupplies recipeCookingSuppliesDetails) {
-        return recipeCookingSuppliesRepository.findById(id)
-                .map(recipeCookingSupplies -> {
-                    recipeCookingSupplies.setRecipe(recipeCookingSuppliesDetails.getRecipe());
-                    recipeCookingSupplies.setSupplyName(recipeCookingSuppliesDetails.getSupplyName());
-                    recipeCookingSupplies.setQuantity(recipeCookingSuppliesDetails.getQuantity());
-                    RecipeCookingSupplies updated = recipeCookingSuppliesRepository.save(recipeCookingSupplies);
-                    return ResponseEntity.ok(updated);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    // Delete a recipe cooking supply
-    @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteRecipeCookingSupply(@PathVariable("id") int id) {
+    // Delete a recipe cooking supply by composite key
+    @DeleteMapping("/{recipeID}/{cookingSupplies}")
+    public ResponseEntity<HttpStatus> deleteRecipeCookingSupply(
+            @PathVariable int recipeID, @PathVariable String cookingSupplies) {
         try {
+            RecipeCookingSuppliesKey id = new RecipeCookingSuppliesKey();
+            id.setRecipeID(recipeID);
+            id.setCookingSupplies(cookingSupplies);
+
             recipeCookingSuppliesRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {

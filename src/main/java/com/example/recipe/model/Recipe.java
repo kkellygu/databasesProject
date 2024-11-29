@@ -52,9 +52,6 @@ public class Recipe {
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Review> reviews;
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<RecipeCookingSupplies> cookingSupplies;
-
     // Getters and Setters
     public int getRecipeID() {
         return recipeID;
@@ -152,11 +149,4 @@ public class Recipe {
         this.reviews = reviews;
     }
 
-    public Set<RecipeCookingSupplies> getCookingSupplies() {
-        return cookingSupplies;
-    }
-
-    public void setCookingSupplies(Set<RecipeCookingSupplies> cookingSupplies) {
-        this.cookingSupplies = cookingSupplies;
-    }
 }

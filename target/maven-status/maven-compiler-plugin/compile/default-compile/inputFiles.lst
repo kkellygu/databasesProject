@@ -1,10 +1,12 @@
 /Users/carliestewart/Downloads/databasesProject/src/main/java/com/example/recipe/RecipeCs4750Application.java
+/Users/carliestewart/Downloads/databasesProject/src/main/java/com/example/recipe/controller/IngredientController.java
 /Users/carliestewart/Downloads/databasesProject/src/main/java/com/example/recipe/controller/RecipeController.java
 /Users/carliestewart/Downloads/databasesProject/src/main/java/com/example/recipe/controller/RecipeCookingSuppliesController.java
 /Users/carliestewart/Downloads/databasesProject/src/main/java/com/example/recipe/controller/RecipeTagsController.java
 /Users/carliestewart/Downloads/databasesProject/src/main/java/com/example/recipe/controller/ReviewController.java
 /Users/carliestewart/Downloads/databasesProject/src/main/java/com/example/recipe/controller/UserController.java
 /Users/carliestewart/Downloads/databasesProject/src/main/java/com/example/recipe/controller/UserPreferencesController.java
+/Users/carliestewart/Downloads/databasesProject/src/main/java/com/example/recipe/model/Ingredient.java
 /Users/carliestewart/Downloads/databasesProject/src/main/java/com/example/recipe/model/Recipe.java
 /Users/carliestewart/Downloads/databasesProject/src/main/java/com/example/recipe/model/RecipeCookingSupplies.java
 /Users/carliestewart/Downloads/databasesProject/src/main/java/com/example/recipe/model/RecipeCookingSuppliesKey.java
@@ -12,6 +14,7 @@
 /Users/carliestewart/Downloads/databasesProject/src/main/java/com/example/recipe/model/Review.java
 /Users/carliestewart/Downloads/databasesProject/src/main/java/com/example/recipe/model/User.java
 /Users/carliestewart/Downloads/databasesProject/src/main/java/com/example/recipe/model/UserPreferences.java
+/Users/carliestewart/Downloads/databasesProject/src/main/java/com/example/recipe/repository/IngredientRepository.java
 /Users/carliestewart/Downloads/databasesProject/src/main/java/com/example/recipe/repository/RecipeCookingSuppliesRepository.java
 /Users/carliestewart/Downloads/databasesProject/src/main/java/com/example/recipe/repository/RecipeRepository.java
 /Users/carliestewart/Downloads/databasesProject/src/main/java/com/example/recipe/repository/RecipeTagsRepository.java

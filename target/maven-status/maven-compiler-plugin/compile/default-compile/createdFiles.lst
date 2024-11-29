@@ -2,8 +2,10 @@ com/example/recipe/repository/ReviewRepository.class
 com/example/recipe/controller/ReviewController.class
 com/example/recipe/controller/UserController.class
 com/example/recipe/RecipeCs4750Application.class
+com/example/recipe/repository/IngredientRepository.class
 com/example/recipe/repository/UserPreferencesRepository.class
 com/example/recipe/repository/RecipeRepository.class
+com/example/recipe/controller/IngredientController.class
 com/example/recipe/controller/RecipeController.class
 com/example/recipe/controller/RecipeCookingSuppliesController.class
 com/example/recipe/model/RecipeTags.class
@@ -18,3 +20,4 @@ com/example/recipe/repository/UserRepository.class
 com/example/recipe/controller/RecipeTagsController.class
 com/example/recipe/repository/RecipeTagsRepository.class
 com/example/recipe/controller/UserPreferencesController.class
+com/example/recipe/model/Ingredient.class

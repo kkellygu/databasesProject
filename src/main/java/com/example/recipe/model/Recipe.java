@@ -1,7 +1,4 @@
 package com.example.recipe.model;
-import com.example.recipe.model.Review;
-import com.example.recipe.model.RecipeCookingSupplies;
-
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;

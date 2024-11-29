@@ -1,7 +1,6 @@
 package com.example.recipe.model;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.util.Set;
 
@@ -51,7 +50,10 @@ public class Recipe {
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Review> reviews;
 
-    // Getters and setters
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<RecipeCookingSupplies> cookingSupplies;
+
+    // Getters and Setters
     public int getRecipeID() {
         return recipeID;
     }
@@ -146,5 +148,13 @@ public class Recipe {
 
     public void setReviews(Set<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public Set<RecipeCookingSupplies> getCookingSupplies() {
+        return cookingSupplies;
+    }
+
+    public void setCookingSupplies(Set<RecipeCookingSupplies> cookingSupplies) {
+        this.cookingSupplies = cookingSupplies;
     }
 }

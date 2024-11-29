@@ -5,22 +5,27 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "userPreferences")
 public class UserPreferences {
+
     @Id
     @Column(name = "userID")
     private int userID;
 
-    @Column(name = "preferences")
+    @Column(name = "preferences", nullable = false)
     private String preferences;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userID", referencedColumnName = "userID", insertable = false, updatable = false)
-    private User user;
+    public UserPreferences() {}
 
-    public Integer getUserID() {
+    public UserPreferences(int userID, String preferences) {
+        this.userID = userID;
+        this.preferences = preferences;
+    }
+
+    // Getters and setters
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(Integer userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 
@@ -30,13 +35,5 @@ public class UserPreferences {
 
     public void setPreferences(String preferences) {
         this.preferences = preferences;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

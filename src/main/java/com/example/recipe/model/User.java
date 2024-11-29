@@ -1,6 +1,7 @@
 package com.example.recipe.model;
 
 import jakarta.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "[user]")
@@ -22,6 +23,7 @@ public class User {
 
     public User() {
     }
+
 
     public User(String name, String username, String password) {
         this.name = name;

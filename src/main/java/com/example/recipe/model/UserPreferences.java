@@ -7,13 +7,12 @@ import jakarta.persistence.*;
 public class UserPreferences {
 
     @Id
-    @Column(name = "userID")
+    @ManyToOne
+    @JoinColumn(name = "userID", referencedColumnName = "userID", nullable = false)
     private int userID;
 
     @Column(name = "preferences", nullable = false)
     private String preferences;
-
-    public UserPreferences() {}
 
     public UserPreferences(int userID, String preferences) {
         this.userID = userID;

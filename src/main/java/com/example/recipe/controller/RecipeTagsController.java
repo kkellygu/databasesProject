@@ -24,6 +24,18 @@ public class RecipeTagsController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    // Create a new recipe tag
+    @PostMapping("/recipeTags")
+    public ResponseEntity<RecipeTags> createRecipeTag(@RequestBody RecipeTags recipeTag) {
+        try {
+            // Save the new recipe tag to the repository
+            RecipeTags savedRecipeTag = recipeTagsRepository.save(recipeTag);
+            return new ResponseEntity<>(savedRecipeTag, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     // Update a recipe tag
     @PutMapping("/recipeTags/{id}")
     public ResponseEntity<RecipeTags> updateRecipeTags(@PathVariable("id") Integer id, @RequestBody RecipeTags recipeTagDetails) {

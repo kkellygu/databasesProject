@@ -46,7 +46,8 @@ public class RecipeCookingSuppliesController {
     // Update a recipe cooking supply by composite key
     @PutMapping("/{recipeID}/{cookingSupplies}")
     public ResponseEntity<RecipeCookingSupplies> updateRecipeCookingSupply(
-            @PathVariable int recipeID, @PathVariable String cookingSupplies,
+            @PathVariable int recipeID,
+            @PathVariable String cookingSupplies,
             @RequestBody RecipeCookingSupplies updatedRecipeCookingSupply) {
         RecipeCookingSuppliesKey id = new RecipeCookingSuppliesKey();
         id.setRecipeID(recipeID);
@@ -56,10 +57,7 @@ public class RecipeCookingSuppliesController {
 
         if (existingRecipeCookingSupply.isPresent()) {
             RecipeCookingSupplies recipeCookingSupply = existingRecipeCookingSupply.get();
-            // Update the fields of the existing entity
-            recipeCookingSupply.setCookingSupplies(updatedRecipeCookingSupply.getCookingSupplies());
-
-            // Save the updated entity back to the database
+            
             recipeCookingSuppliesRepository.save(recipeCookingSupply);
 
             return new ResponseEntity<>(recipeCookingSupply, HttpStatus.OK);

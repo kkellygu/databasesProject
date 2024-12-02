@@ -43,6 +43,31 @@ public class RecipeCookingSuppliesController {
         return recipeCookingSuppliesRepository.save(recipeCookingSupplies);
     }
 
+    // Update a recipe cooking supply by composite key
+    @PutMapping("/{recipeID}/{cookingSupplies}")
+    public ResponseEntity<RecipeCookingSupplies> updateRecipeCookingSupply(
+            @PathVariable int recipeID, @PathVariable String cookingSupplies,
+            @RequestBody RecipeCookingSupplies updatedRecipeCookingSupply) {
+        RecipeCookingSuppliesKey id = new RecipeCookingSuppliesKey();
+        id.setRecipeID(recipeID);
+        id.setCookingSupplies(cookingSupplies);
+
+        Optional<RecipeCookingSupplies> existingRecipeCookingSupply = recipeCookingSuppliesRepository.findById(id);
+
+        if (existingRecipeCookingSupply.isPresent()) {
+            RecipeCookingSupplies recipeCookingSupply = existingRecipeCookingSupply.get();
+            // Update the fields of the existing entity
+            recipeCookingSupply.setCookingSupplies(updatedRecipeCookingSupply.getCookingSupplies());
+
+            // Save the updated entity back to the database
+            recipeCookingSuppliesRepository.save(recipeCookingSupply);
+
+            return new ResponseEntity<>(recipeCookingSupply, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     // Delete a recipe cooking supply by composite key
     @DeleteMapping("/{recipeID}/{cookingSupplies}")
     public ResponseEntity<HttpStatus> deleteRecipeCookingSupply(

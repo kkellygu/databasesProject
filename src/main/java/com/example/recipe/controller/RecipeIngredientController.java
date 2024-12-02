@@ -1,7 +1,7 @@
 package com.example.recipe.controller;
 
-import com.example.recipe.model.RecipeIngredient;
-import com.example.recipe.repository.RecipeIngredientRepository;
+import com.example.recipe.model.RecipeIngredients;
+import com.example.recipe.repository.RecipeIngredientsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,38 +14,38 @@ import java.util.List;
 public class RecipeIngredientController {
 
     @Autowired
-    private RecipeIngredientRepository recipeIngredientRepository;
+    private RecipeIngredientsRepository recipeIngredientsRepository;
 
     // Get all recipe ingredients
     @GetMapping
-    public List<RecipeIngredient> getAllRecipeIngredients() {
-        return recipeIngredientRepository.findAll();
+    public List<RecipeIngredients> getAllRecipeIngredients() {
+        return recipeIngredientsRepository.findAll();
     }
 
     // Get a specific recipe ingredient by ID
     @GetMapping("/{id}")
-    public ResponseEntity<RecipeIngredient> getRecipeIngredientById(@PathVariable Long id) {
-        return recipeIngredientRepository.findById(id)
+    public ResponseEntity<RecipeIngredients> getRecipeIngredientById(@PathVariable Long id) {
+        return recipeIngredientsRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     // Create a new recipe ingredient
     @PostMapping
-    public RecipeIngredient createRecipeIngredient(@RequestBody RecipeIngredient recipeIngredient) {
-        return recipeIngredientRepository.save(recipeIngredient);
+    public RecipeIngredients createRecipeIngredient(@RequestBody RecipeIngredients recipeIngredient) {
+        return recipeIngredientsRepository.save(recipeIngredient);
     }
 
     // Update an existing recipe ingredient
     @PutMapping("/{id}")
-    public ResponseEntity<RecipeIngredient> updateRecipeIngredient(
+    public ResponseEntity<RecipeIngredients> updateRecipeIngredient(
             @PathVariable Long id,
-            @RequestBody RecipeIngredient updatedRecipeIngredient) {
-        return recipeIngredientRepository.findById(id).map(recipeIngredient -> {
+            @RequestBody RecipeIngredients updatedRecipeIngredient) {
+        return recipeIngredientsRepository.findById(id).map(recipeIngredient -> {
             recipeIngredient.setRecipeID(updatedRecipeIngredient.getRecipeID());
             recipeIngredient.setIngredientID(updatedRecipeIngredient.getIngredientID());
             recipeIngredient.setRecipeAmount(updatedRecipeIngredient.getRecipeAmount());
-            recipeIngredientRepository.save(recipeIngredient);
+            recipeIngredientsRepository.save(recipeIngredient);
             return ResponseEntity.ok(recipeIngredient);
         }).orElse(ResponseEntity.notFound().build());
     }
@@ -54,7 +54,7 @@ public class RecipeIngredientController {
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteRecipeIngredient(@PathVariable("id") Long id) {
         try {
-            recipeIngredientRepository.deleteById(id);
+            recipeIngredientsRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

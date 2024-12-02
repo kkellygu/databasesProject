@@ -45,6 +45,31 @@ public class UserPreferencesController {
         }
     }
 
+    // Update a user's preferences
+    @PutMapping("/users/{userID}/preferences")
+    public ResponseEntity<UserPreferences> updateUserPreference(
+            @PathVariable int userID,
+            @RequestBody String updatedPreference) {
+        try {
+            // Check if the user's preferences exist
+            List<UserPreferences> existingPreferences = userPreferencesRepository.findByUserID(userID);
+            if (existingPreferences.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
+            // Update the preference (assuming one preference entry per user; modify if there are multiple)
+            UserPreferences preference = existingPreferences.get(0);
+            preference.setPreferences(updatedPreference);
+
+            // Save the updated preferences
+            UserPreferences updatedPreferences = userPreferencesRepository.save(preference);
+
+            return new ResponseEntity<>(updatedPreferences, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     // Delete a preference for a user
     @DeleteMapping("/users/{userID}/preferences/{preference}")
     public ResponseEntity<HttpStatus> deleteUserPreference(

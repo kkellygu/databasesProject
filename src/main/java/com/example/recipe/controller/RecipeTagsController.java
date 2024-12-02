@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired; // For dependency
 import org.springframework.http.HttpStatus; // For HTTP status codes
 import org.springframework.http.ResponseEntity; // For creating ResponseEntity objects
 
-import java.util.List; // For handling lists of RecipeTags
 import java.util.Optional; // For handling optional objects
 
 @RestController
